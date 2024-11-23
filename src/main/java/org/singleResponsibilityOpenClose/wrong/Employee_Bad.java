@@ -22,11 +22,6 @@ public class Employee_Bad {
     private String employeeId;
 
     /**
-     * The type of employees
-     */
-    private String employeeType; // "Permanent", "Contract", "Daily"
-
-    /**
      * The base salary
      */
     private double baseSalary;
@@ -51,17 +46,28 @@ public class Employee_Bad {
      */
     private double dailyRate;
 
+    private TypeEmployee employeeType;
+
     /**
      * The number of days the employee has worked
      */
     private int daysWorked;
 
+    public Employee_Bad(String name, String employeeId, TypeEmployee typeEmployee) {
+        this.name = name;
+        this.employeeId = employeeId;
+        this.employeeType = typeEmployee;
+    }
+
     public double calculateSalary() {
-        if (employeeType.equals("Permanent")) {
+        if (employeeType.equals(TypeEmployee.PERMANENT)) {
+            System.out.println("Permanent employee's salary");
             return baseSalary + bonus - calculateTaxes();
-        } else if (employeeType.equals("Contract")) {
+        } else if (employeeType.equals(TypeEmployee.CONTRACTUAL)) {
+            System.out.println("Contractual employee's salary");
             return hourlyRate * hoursWorked - calculateSocialSecurity();
-        } else if (employeeType.equals("Daily")) {
+        } else if (employeeType.equals(TypeEmployee.DAILY)) {
+            System.out.println("Daily employee's salary");
             return dailyRate * daysWorked;
         } else {
             throw new IllegalArgumentException("Unknown employee type");
